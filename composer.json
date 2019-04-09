@@ -1,0 +1,47 @@
+{
+  "name": "degordian/erste-bank-client",
+  "description": "Client written in PHP for Erste Bank API",
+  "version": "1.0.0",
+  "keywords": [
+    "Erste",
+    "Bank",
+    "API",
+    "Client",
+    "Bank Client",
+    "Erste Bank",
+    "Erste Bank Client",
+    "PHP",
+    "Erste PHP"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andrija Dvorski",
+      "email": "andrija.dvorski@bornfight.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "guzzlehttp/guzzle": "^6.3",
+    "ramsey/uuid": "^3.8",
+    "symfony/property-access": "^4.2",
+    "symfony/serializer": "^4.2",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Degordian\\ErsteBankClient\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "configure-commit-template": "git config --add commit.template .gitmessage",
+    "test": "codecept run"
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.5"
+  }
+}

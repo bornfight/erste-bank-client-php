@@ -1,0 +1,26 @@
+language: php
+
+notifications:
+  email:
+    on_success: never
+
+git:
+  depth: 2
+
+matrix:
+  include:
+    - php: hhvm
+    - php: nightly
+    - php: 7.2
+  fast_finish: true
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction
+
+script:
+  - composer test
