@@ -1,5 +1,5 @@
 {
-  "name": "degordian/erste-bank-client",
+  "name": "bornfight/erste-bank-client",
   "description": "Client written in PHP for Erste Bank API",
   "version": "1.0.0",
   "keywords": [
@@ -30,7 +30,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Degordian\\ErsteBankClient\\": "src/"
+      "Bornfight\\ErsteBankClient\\": "src/"
     }
   },
   "minimum-stability": "stable",

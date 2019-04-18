@@ -1,12 +1,17 @@
-Erste
+Erste Bank Client
 ================
-[![Build Status](https://travis-ci.org/degordian/erste.svg?branch=master)](https://travis-ci.org/degordian/erste)
 
-This is where your library description should go. Try to limit it to a paragraph or two.
+Unofficial client for interacting with Erste Bank API
+
+Currently supported only for Croatian bank
+
+Supported APIs:
+- [x] Accounts
+- [x] Transactions
 
 #### Installation via Composer
 ``` bash
-$ composer require degordian/erste
+$ composer require bornfight/erste-bank-client
 ```
 
 #### Running tests

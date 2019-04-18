@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Degordian\ErsteBankClient\models\paramObjects;
+namespace Bornfight\ErsteBankClient\models\paramObjects;
 
 
 class ApiUser

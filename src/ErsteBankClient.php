@@ -2,16 +2,16 @@
 declare(strict_types=1);
 
 
-namespace Degordian\ErsteBankClient;
+namespace Bornfight\ErsteBankClient;
 
-use Degordian\ErsteBankClient\http\HttpClient;
-use Degordian\ErsteBankClient\models\Account;
-use Degordian\ErsteBankClient\models\Consent;
-use Degordian\ErsteBankClient\models\paramObjects\ApiUser;
-use Degordian\ErsteBankClient\models\paramObjects\SSLCertificates;
-use Degordian\ErsteBankClient\models\Token;
-use Degordian\ErsteBankClient\models\TransactionResponse;
-use Degordian\ErsteBankClient\models\TransactionType;
+use Bornfight\ErsteBankClient\http\HttpClient;
+use Bornfight\ErsteBankClient\models\Account;
+use Bornfight\ErsteBankClient\models\Consent;
+use Bornfight\ErsteBankClient\models\paramObjects\ApiUser;
+use Bornfight\ErsteBankClient\models\paramObjects\SSLCertificates;
+use Bornfight\ErsteBankClient\models\Token;
+use Bornfight\ErsteBankClient\models\TransactionResponse;
+use Bornfight\ErsteBankClient\models\TransactionType;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;

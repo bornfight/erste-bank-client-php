@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Degordian\ErsteBankClient\http;
+namespace Bornfight\ErsteBankClient\http;
 
 
-use Degordian\ErsteBankClient\models\paramObjects\ApiUser;
-use Degordian\ErsteBankClient\models\paramObjects\SSLCertificates;
+use Bornfight\ErsteBankClient\models\paramObjects\ApiUser;
+use Bornfight\ErsteBankClient\models\paramObjects\SSLCertificates;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;

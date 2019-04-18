@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Degordian\ErsteBankClient\models;
+namespace Bornfight\ErsteBankClient\models;
 
 
 class Account
