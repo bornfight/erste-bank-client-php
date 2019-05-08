@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Bornfight\ErsteBankClient\models;
+namespace Bornfight\ErsteBankClient\models\Transaction;
 
 
-class CreditorAccount
+class Account
 {
     private $iban;
 

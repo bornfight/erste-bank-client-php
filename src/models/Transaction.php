@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace Bornfight\ErsteBankClient\models;
 
 
+use Bornfight\ErsteBankClient\models\Transaction\Amount;
+use Bornfight\ErsteBankClient\models\Transaction\Account;
+
 class Transaction
 {
     private $transactionId;
@@ -11,9 +14,11 @@ class Transaction
     private $bookingDate;
     private $valueDate;
     private $creditorName;
+    private $debtorName;
     private $remittanceInformationUnstructured;
     private $transactionAmount;
     private $creditorAccount;
+    private $debtorAccount;
 
     public function __construct(object $data)
     {
@@ -23,8 +28,9 @@ class Transaction
         $this->valueDate = $data->valueDate;
         $this->creditorName = $data->creditorName;
         $this->remittanceInformationUnstructured = $data->remittanceInformationUnstructured;
-        $this->transactionAmount = new TransactionAmount($data->transactionAmount);
-        $this->creditorAccount = new CreditorAccount($data->creditorAccount);
+        $this->transactionAmount = new Amount($data->transactionAmount);
+        $this->creditorAccount = new Account($data->creditorAccount);
+
     }
 
     public function getTransactionId(): string
@@ -67,14 +73,24 @@ class Transaction
         $this->valueDate = $valueDate;
     }
 
-    public function getCreditorName(): string
+    public function getCreditorName(): ?string
     {
         return $this->creditorName;
     }
 
-    public function setCreditorName(string $creditorName): void
+    public function setCreditorName(?string $creditorName): void
     {
         $this->creditorName = $creditorName;
+    }
+
+    public function getDebtorName(): ?string
+    {
+        return $this->debtorName;
+    }
+
+    public function setDebtorName(?string $debtorName): void
+    {
+        $this->debtorName = $debtorName;
     }
 
     public function getRemittanceInformationUnstructured(): string
@@ -87,23 +103,33 @@ class Transaction
         $this->remittanceInformationUnstructured = $remittanceInformationUnstructured;
     }
 
-    public function getTransactionAmount(): TransactionAmount
+    public function getTransactionAmount(): Amount
     {
         return $this->transactionAmount;
     }
 
     public function setTransactionAmount(object $transactionAmount): void
     {
-        $this->transactionAmount = new TransactionAmount($transactionAmount);
+        $this->transactionAmount = new Amount($transactionAmount);
     }
 
-    public function getCreditorAccount(): CreditorAccount
+    public function getCreditorAccount(): ?Account
     {
         return $this->creditorAccount;
     }
 
-    public function setCreditorAccount(object $creditorAccount): void
+    public function setCreditorAccount(?object $creditorAccount): void
     {
-        $this->creditorAccount = new CreditorAccount($creditorAccount);
+        $this->creditorAccount = new Account($creditorAccount);
+    }
+
+    public function getDebtorAccount(): ?Account
+    {
+        return $this->debtorAccount;
+    }
+
+    public function setDebtorAccount(?object $debtorAccount): void
+    {
+        $this->debtorAccount = new Account($debtorAccount);
     }
 }
