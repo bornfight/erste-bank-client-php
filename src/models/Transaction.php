@@ -23,14 +23,15 @@ class Transaction
     public function __construct(object $data)
     {
         $this->transactionId = $data->transactionId;
+        $this->endToEndId = $data->endToEndId ?? null;
         $this->bookingDate = $data->bookingDate;
         $this->valueDate = $data->valueDate;
-        $this->creditorName = $data->creditorName;
-        $this->endToEndId = $data->endToEndId ?? null;
+        $this->creditorName = $data->creditorName ?? null;
+        $this->debtorName = $data->debtorName ?? null;
         $this->remittanceInformationUnstructured = $data->remittanceInformationUnstructured;
         $this->transactionAmount = new Amount($data->transactionAmount);
-        $this->creditorAccount = new Account($data->creditorAccount);
-
+        $this->creditorAccount = isset($data->creditorAccount) ? new Account($data->creditorAccount) : null;
+        $this->debtorAccount = isset($data->debtorAccount) ? new Account($data->debtorAccount) : null;
     }
 
     public function getTransactionId(): string
@@ -48,7 +49,7 @@ class Transaction
         return $this->endToEndId;
     }
 
-    public function setEndToEndId(?string $endToEndId): void
+    public function setEndToEndId(string $endToEndId): void
     {
         $this->endToEndId = $endToEndId;
     }
