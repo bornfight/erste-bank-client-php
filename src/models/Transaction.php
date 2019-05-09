@@ -23,7 +23,6 @@ class Transaction
     public function __construct(object $data)
     {
         $this->transactionId = $data->transactionId;
-        $this->endToEndId = $data->endToEndId;
         $this->bookingDate = $data->bookingDate;
         $this->valueDate = $data->valueDate;
         $this->creditorName = $data->creditorName;
