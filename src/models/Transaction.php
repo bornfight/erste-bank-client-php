@@ -27,6 +27,7 @@ class Transaction
         $this->bookingDate = $data->bookingDate;
         $this->valueDate = $data->valueDate;
         $this->creditorName = $data->creditorName;
+        $this->endToEndId = $data->endToEndId ?? null;
         $this->remittanceInformationUnstructured = $data->remittanceInformationUnstructured;
         $this->transactionAmount = new Amount($data->transactionAmount);
         $this->creditorAccount = new Account($data->creditorAccount);
@@ -43,12 +44,12 @@ class Transaction
         $this->transactionId = $transactionId;
     }
 
-    public function getEndToEndId(): string
+    public function getEndToEndId(): ?string
     {
         return $this->endToEndId;
     }
 
-    public function setEndToEndId(string $endToEndId): void
+    public function setEndToEndId(?string $endToEndId): void
     {
         $this->endToEndId = $endToEndId;
     }
