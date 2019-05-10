@@ -1,7 +1,6 @@
 {
   "name": "bornfight/erste-bank-client",
   "description": "Client written in PHP for Erste Bank API",
-  "version": "1.0.1",
   "keywords": [
     "Erste",
     "Bank",
