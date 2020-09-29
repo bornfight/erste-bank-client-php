@@ -22,9 +22,9 @@
   "require": {
     "php": ">=7.2",
     "guzzlehttp/guzzle": "^6.3",
-    "ramsey/uuid": "^3.8",
-    "symfony/property-access": "^4.2",
-    "symfony/serializer": "^4.2",
+    "ramsey/uuid": "^4",
+    "symfony/property-access": "^5",
+    "symfony/serializer": "^5",
     "ext-json": "*"
   },
   "autoload": {

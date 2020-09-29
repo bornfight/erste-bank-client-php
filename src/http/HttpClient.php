@@ -41,7 +41,7 @@ class HttpClient
     {
         return $this->client->post(sprintf('%s/consents', self::AISP_ENDPOINT), [
             RequestOptions::HEADERS => [
-                'X-Request-ID'              => Uuid::uuid4(),
+                'X-Request-ID'              => Uuid::uuid4()->toString(),
                 'psu-ip-address'            => '127.0.0.1',
                 'signature'                 => 'test',
                 'digest'                    => 'test',
@@ -100,7 +100,7 @@ class HttpClient
     {
         return $this->client->get(sprintf('%s/accounts', self::AISP_ENDPOINT), [
             RequestOptions::HEADERS => [
-                'X-Request-ID'  => Uuid::uuid4(),
+                'X-Request-ID'  => Uuid::uuid4()->toString(),
                 'consent-id'    => $consent,
                 'Authorization' => "Bearer {$token}",
                 'web-api-key'   => $this->apiUser->getWebApiKey(),
@@ -123,7 +123,7 @@ class HttpClient
         $params = array_merge($params, $defaultParams);
         return $this->client->get(sprintf('%s/accounts/%s/transactions', self::AISP_ENDPOINT, $accountId), [
             RequestOptions::HEADERS => [
-                'X-Request-ID'  => Uuid::uuid4(),
+                'X-Request-ID'  => Uuid::uuid4()->toString(),
                 'consent-id'    => $consentId,
                 'Authorization' => "Bearer {$token}",
                 'web-api-key'   => $this->apiUser->getWebApiKey(),
