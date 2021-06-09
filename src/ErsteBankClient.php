@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bornfight\ErsteBankClient;
 
+use Bornfight\ErsteBankClient\enum\ApiEndpoint;
 use Bornfight\ErsteBankClient\http\HttpClient;
 use Bornfight\ErsteBankClient\models\Account;
 use Bornfight\ErsteBankClient\models\Consent;
@@ -35,7 +36,8 @@ class ErsteBankClient
         string $clientSecret,
         string $redirectUri,
         string $pemFilePath,
-        string $keyFilePath
+        string $keyFilePath,
+        string $dataEndpoint = ApiEndpoint::AISP
     )
     {
         $this->redirectUri = $redirectUri;
@@ -46,7 +48,8 @@ class ErsteBankClient
         $this->httpClient = new HttpClient(
             $this->apiUser,
             $redirectUri,
-            new SSLCertificates($pemFilePath, $keyFilePath)
+            new SSLCertificates($pemFilePath, $keyFilePath),
+            $dataEndpoint
         );
     }
 

@@ -14,17 +14,18 @@ use Ramsey\Uuid\Uuid;
 class HttpClient
 {
     public const BASE_URL = 'https://webapi.developers.erstegroup.com';
-    private const AISP_ENDPOINT = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/netapi';
     private const TOKEN_ENDPOINT = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/sandbox-idp';
 
     private $redirectUri;
     private $apiUser;
+    private $dataEndpoint = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/psd2-aisp';
 
-    public function __construct(ApiUser $apiUser, string $redirectUri, SSLCertificates $sslCertificates)
+    public function __construct(ApiUser $apiUser, string $redirectUri, SSLCertificates $sslCertificates, $dataEndpoint)
     {
 
         $this->redirectUri = $redirectUri;
         $this->apiUser = $apiUser;
+        $this->dataEndpoint = $dataEndpoint;
 
         $this->client = new Client([
             'base_uri'              => self::BASE_URL,
@@ -39,7 +40,7 @@ class HttpClient
 
     public function getConsent(): ResponseInterface
     {
-        return $this->client->post(sprintf('%s/consents', self::AISP_ENDPOINT), [
+        return $this->client->post(sprintf('%s/consents', $this->dataEndpoint), [
             RequestOptions::HEADERS => [
                 'X-Request-ID'              => Uuid::uuid4()->toString(),
                 'psu-ip-address'            => '127.0.0.1',
@@ -98,7 +99,7 @@ class HttpClient
 
     public function getAccounts(string $token, string $consent, array $params): ResponseInterface
     {
-        return $this->client->get(sprintf('%s/accounts', self::AISP_ENDPOINT), [
+        return $this->client->get(sprintf('%s/accounts', $this->dataEndpoint), [
             RequestOptions::HEADERS => [
                 'X-Request-ID'  => Uuid::uuid4()->toString(),
                 'consent-id'    => $consent,
@@ -121,7 +122,7 @@ class HttpClient
             'bookingStatus' => "both",
         ];
         $params = array_merge($params, $defaultParams);
-        return $this->client->get(sprintf('%s/accounts/%s/transactions', self::AISP_ENDPOINT, $accountId), [
+        return $this->client->get(sprintf('%s/accounts/%s/transactions', $this->dataEndpoint, $accountId), [
             RequestOptions::HEADERS => [
                 'X-Request-ID'  => Uuid::uuid4()->toString(),
                 'consent-id'    => $consentId,
