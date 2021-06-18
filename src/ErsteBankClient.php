@@ -14,6 +14,7 @@ use Bornfight\ErsteBankClient\models\TransactionResponse;
 use Bornfight\ErsteBankClient\models\TransactionType;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -39,7 +40,7 @@ class ErsteBankClient
     {
         $this->redirectUri = $redirectUri;
 
-        $this->serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        $this->serializer = new Serializer([new ObjectNormalizer(), new ArrayDenormalizer()], [new JsonEncoder()]);
         $this->apiUser = new ApiUser($webApiKey, $clientId, $clientSecret);
 
         $this->httpClient = new HttpClient(
@@ -106,14 +107,14 @@ class ErsteBankClient
     public function getAccounts(string $token, string $consentId, array $params): array
     {
         $accountsResponse = $this->httpClient->getAccounts($token, $consentId, $params);
+        $accountsArray = json_decode($accountsResponse->getBody()->getContents(), true)['accounts'];
 
-        return $this->serializer->deserialize($accountsResponse->getBody(), Account::class, 'json');
+        return $this->serializer->deserialize(json_encode($accountsArray), Account::class.'[]', 'json');
     }
 
     public function getTransactions(string $token, string $consentId, string $accountId, array $params): TransactionType
     {
         $transactionsResponse = $this->httpClient->getTransactions($token, $consentId, $accountId, $params);
-
         return $this->serializer->deserialize(
             $transactionsResponse->getBody()->getContents(),
             TransactionResponse::class,

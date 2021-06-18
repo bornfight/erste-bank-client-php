@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
 class HttpClient
 {
     public const BASE_URL = 'https://webapi.developers.erstegroup.com';
-    private const AISP_ENDPOINT = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/psd2-aisp';
+    private const AISP_ENDPOINT = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/netapi';
     private const TOKEN_ENDPOINT = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/sandbox-idp';
 
     private $redirectUri;
@@ -73,8 +73,8 @@ class HttpClient
             'code'          => $authCode,
         ];
 
-        return $this->client->get(sprintf('%s/token', self::TOKEN_ENDPOINT), [
-                RequestOptions::QUERY => $queryParams,
+        return $this->client->post(sprintf('%s/token', self::TOKEN_ENDPOINT), [
+                RequestOptions::FORM_PARAMS => $queryParams,
             ]
         );
     }
