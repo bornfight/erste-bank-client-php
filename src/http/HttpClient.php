@@ -18,7 +18,7 @@ class HttpClient
 
     private $redirectUri;
     private $apiUser;
-    private $dataEndpoint = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/psd2-aisp';
+    private $dataEndpoint;
 
     public function __construct(ApiUser $apiUser, string $redirectUri, SSLCertificates $sslCertificates, $dataEndpoint)
     {
