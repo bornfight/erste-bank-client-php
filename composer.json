@@ -21,7 +21,7 @@
   ],
   "require": {
     "php": ">=7.2",
-    "guzzlehttp/guzzle": "^6.3",
+    "guzzlehttp/guzzle": "^7.0",
     "ramsey/uuid": "^4",
     "symfony/property-access": "^5",
     "symfony/serializer": "^5",
@@ -41,6 +41,6 @@
     "test": "codecept run"
   },
   "require-dev": {
-    "codeception/codeception": "^2.5"
+    "codeception/codeception": "^4.0"
   }
 }
