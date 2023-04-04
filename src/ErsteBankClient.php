@@ -28,6 +28,10 @@ class ErsteBankClient
     private $token;
     private $consent;
     private $apiUser;
+    /**
+     * @var string
+     */
+    private $authEndpoint;
 
 
     public function __construct(
@@ -37,7 +41,9 @@ class ErsteBankClient
         string $redirectUri,
         string $pemFilePath,
         string $keyFilePath,
-        string $dataEndpoint = ApiEndpoint::AISP
+        string $dataEndpoint = ApiEndpoint::AISP_SANDBOX,
+        string $tokenEndpoint = ApiEndpoint::TOKEN_SANDBOX,
+        string $authEndpoint = ApiEndpoint::AUTH_SANDBOX
     )
     {
         $this->redirectUri = $redirectUri;
@@ -49,8 +55,10 @@ class ErsteBankClient
             $this->apiUser,
             $redirectUri,
             new SSLCertificates($pemFilePath, $keyFilePath),
-            $dataEndpoint
+            $dataEndpoint,
+            $tokenEndpoint
         );
+        $this->authEndpoint = $authEndpoint;
     }
 
     public function getConsent(): Consent
@@ -80,8 +88,8 @@ class ErsteBankClient
         ];
 
         return sprintf(
-            '%s/api/ebc/sandbox/v1/sandbox-idp/auth?%s',
-            HttpClient::BASE_URL, http_build_query($options));
+            '%s?%s',
+            $this->authEndpoint, http_build_query($options));
     }
 
     public function getTokenByAuthCode(string $authCode): Token
