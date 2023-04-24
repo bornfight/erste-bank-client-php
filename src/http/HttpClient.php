@@ -13,14 +13,12 @@ use Ramsey\Uuid\Uuid;
 
 class HttpClient
 {
-    public const BASE_URL = 'https://webapi.developers.erstegroup.com';
-    private const TOKEN_ENDPOINT = 'https://webapi.developers.erstegroup.com/api/ebc/sandbox/v1/sandbox-idp';
-
     private $redirectUri;
     private $apiUser;
     private $dataEndpoint;
+    private $tokenEndpoint;
 
-    public function __construct(ApiUser $apiUser, string $redirectUri, SSLCertificates $sslCertificates, $dataEndpoint)
+    public function __construct(ApiUser $apiUser, string $redirectUri, SSLCertificates $sslCertificates, $dataEndpoint, $tokenEndpoint)
     {
 
         $this->redirectUri = $redirectUri;
@@ -28,7 +26,6 @@ class HttpClient
         $this->dataEndpoint = $dataEndpoint;
 
         $this->client = new Client([
-            'base_uri'              => self::BASE_URL,
             RequestOptions::HEADERS => [
                 'Content-Type'  => 'application/json',
                 'cache-control' => 'no-cache',
@@ -36,6 +33,7 @@ class HttpClient
             RequestOptions::CERT    => $sslCertificates->getPemFilePath(),
             RequestOptions::SSL_KEY => $sslCertificates->getKeyFilePath(),
         ]);
+        $this->tokenEndpoint = $tokenEndpoint;
     }
 
     public function getConsent(): ResponseInterface
@@ -56,7 +54,7 @@ class HttpClient
                     'transactions' => [],
                 ],
                 'recurringIndicator'       => false,
-                'validUntil'               => '2019-06-30',
+                'validUntil'               => '2030-06-30',
                 'frequencyPerDay'          => 4,
                 'combinedServiceIndicator' => false,
             ],
@@ -74,7 +72,7 @@ class HttpClient
             'code'          => $authCode,
         ];
 
-        return $this->client->post(sprintf('%s/token', self::TOKEN_ENDPOINT), [
+        return $this->client->post(sprintf('%s/token', $this->tokenEndpoint), [
                 RequestOptions::FORM_PARAMS => $queryParams,
             ]
         );
@@ -91,7 +89,7 @@ class HttpClient
             'refresh_token' => $refreshToken,
         ];
 
-        return $this->client->get(sprintf('%s/token', self::TOKEN_ENDPOINT), [
+        return $this->client->get(sprintf('%s/token', $this->tokenEndpoint), [
                 RequestOptions::QUERY => $queryParams,
             ]
         );
