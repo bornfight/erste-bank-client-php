@@ -6,6 +6,7 @@ namespace Bornfight\ErsteBankClient\http;
 
 use Bornfight\ErsteBankClient\models\paramObjects\ApiUser;
 use Bornfight\ErsteBankClient\models\paramObjects\SSLCertificates;
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
@@ -42,9 +43,6 @@ class HttpClient
             RequestOptions::HEADERS => [
                 'X-Request-ID'              => Uuid::uuid4()->toString(),
                 'psu-ip-address'            => '127.0.0.1',
-                'signature'                 => 'test',
-                'digest'                    => 'test',
-                'tpp-signature-certificate' => 'test',
                 'web-api-key'               => $this->apiUser->getWebApiKey(),
             ],
             RequestOptions::JSON    => [
@@ -54,7 +52,7 @@ class HttpClient
                     'transactions' => [],
                 ],
                 'recurringIndicator'       => false,
-                'validUntil'               => '2030-06-30',
+                'validUntil'               => (new DateTime())->modify('+85 days')->format('Y-m-d'),
                 'frequencyPerDay'          => 4,
                 'combinedServiceIndicator' => false,
             ],
@@ -85,12 +83,11 @@ class HttpClient
             'client_id'     => $this->apiUser->getClientId(),
             'client_secret' => $this->apiUser->getClientSecret(),
             'grant_type'    => 'refresh_token',
-            'code_verifier' => 'loremipsum',
             'refresh_token' => $refreshToken,
         ];
 
-        return $this->client->get(sprintf('%s/token', $this->tokenEndpoint), [
-                RequestOptions::QUERY => $queryParams,
+        return $this->client->post(sprintf('%s/token', $this->tokenEndpoint), [
+                RequestOptions::FORM_PARAMS => $queryParams,
             ]
         );
     }

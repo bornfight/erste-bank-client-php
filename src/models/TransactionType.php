@@ -11,8 +11,8 @@ class TransactionType
 
     public function __construct(object $data)
     {
-        $this->setBooked($data->booked);
-        $this->setPending($data->pending);
+        $this->setBooked($data->booked ?? []);
+        $this->setPending($data->pending ?? []);
     }
 
     /**
