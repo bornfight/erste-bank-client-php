@@ -30,8 +30,8 @@ class Transaction
         $this->debtorName = $data->debtorName ?? null;
         $this->remittanceInformationUnstructured = $data->remittanceInformationUnstructured;
         $this->transactionAmount = new Amount($data->transactionAmount);
-        $this->creditorAccount = isset($data->creditorAccount) ? new Account($data->creditorAccount) : null;
-        $this->debtorAccount = isset($data->debtorAccount) ? new Account($data->debtorAccount) : null;
+        $this->creditorAccount = isset($data->creditorAccount->iban) ? new Account($data->creditorAccount) : null;
+        $this->debtorAccount = isset($data->debtorAccount->iban) ? new Account($data->debtorAccount) : null;
     }
 
     public function getTransactionId(): string
