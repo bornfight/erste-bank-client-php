@@ -123,9 +123,9 @@ class ErsteBankClient
         return $this->serializer->deserialize(json_encode($accountsArray), Account::class.'[]', 'json');
     }
 
-    public function getTransactions(string $token, string $consentId, string $accountId, array $params): TransactionType
+    public function getTransactions(string $token, string $consentId, string $accountId, array $params, ?string $psuIpAddress = null): TransactionType
     {
-        $transactionsResponse = $this->httpClient->getTransactions($token, $consentId, $accountId, $params);
+        $transactionsResponse = $this->httpClient->getTransactions($token, $consentId, $accountId, $params, $psuIpAddress);
         return $this->serializer->deserialize(
             $transactionsResponse->getBody()->getContents(),
             TransactionResponse::class,

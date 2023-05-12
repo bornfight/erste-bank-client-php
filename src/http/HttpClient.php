@@ -110,20 +110,28 @@ class HttpClient
         string $token,
         string $consentId,
         string $accountId,
-        array $params
+        array $params,
+        ?string $psuIpAddress = null
     ): ResponseInterface
     {
         $defaultParams = [
-            'bookingStatus' => "both",
+            'bookingStatus' => 'both',
         ];
-        $params = array_merge($params, $defaultParams);
+        $params = array_merge($defaultParams, $params);
+
+        $headers = [
+            'X-Request-ID'  => Uuid::uuid4()->toString(),
+            'consent-id'    => $consentId,
+            'Authorization' => "Bearer {$token}",
+            'web-api-key'   => $this->apiUser->getWebApiKey(),
+        ];
+
+        if ($psuIpAddress !== null) {
+            $headers['PSU-IP-Address'] = $psuIpAddress;
+        }
+
         return $this->client->get(sprintf('%s/accounts/%s/transactions', $this->dataEndpoint, $accountId), [
-            RequestOptions::HEADERS => [
-                'X-Request-ID'  => Uuid::uuid4()->toString(),
-                'consent-id'    => $consentId,
-                'Authorization' => "Bearer {$token}",
-                'web-api-key'   => $this->apiUser->getWebApiKey(),
-            ],
+            RequestOptions::HEADERS => $headers,
             RequestOptions::QUERY   => $params,
         ]);
     }
