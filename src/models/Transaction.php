@@ -16,6 +16,7 @@ class Transaction
     private $creditorName;
     private $debtorName;
     private $remittanceInformationUnstructured;
+    private $remittanceInformationStructuredReference;
     private $transactionAmount;
     private $creditorAccount;
     private $debtorAccount;
@@ -29,6 +30,7 @@ class Transaction
         $this->creditorName = $data->creditorName ?? null;
         $this->debtorName = $data->debtorName ?? null;
         $this->remittanceInformationUnstructured = $data->remittanceInformationUnstructured;
+        $this->remittanceInformationStructuredReference = $data->remittanceInformationStructured->reference ?? null;
         $this->transactionAmount = new Amount($data->transactionAmount);
         $this->creditorAccount = isset($data->creditorAccount->iban) ? new Account($data->creditorAccount) : null;
         $this->debtorAccount = isset($data->debtorAccount->iban) ? new Account($data->debtorAccount) : null;
@@ -132,5 +134,15 @@ class Transaction
     public function setDebtorAccount(?object $debtorAccount): void
     {
         $this->debtorAccount = new Account($debtorAccount);
+    }
+
+    public function setRemittanceInformationStructuredReference(string $remittanceInformationStructuredReference): void
+    {
+        $this->remittanceInformationStructuredReference = $remittanceInformationStructuredReference;
+    }
+
+    public function getRemittanceInformationStructuredReference(): string
+    {
+        return $this->remittanceInformationStructuredReference;
     }
 }
