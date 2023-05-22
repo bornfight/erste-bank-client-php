@@ -136,12 +136,12 @@ class Transaction
         $this->debtorAccount = new Account($debtorAccount);
     }
 
-    public function setRemittanceInformationStructuredReference(string $remittanceInformationStructuredReference): void
+    public function setRemittanceInformationStructuredReference(?string $remittanceInformationStructuredReference): void
     {
         $this->remittanceInformationStructuredReference = $remittanceInformationStructuredReference;
     }
 
-    public function getRemittanceInformationStructuredReference(): string
+    public function getRemittanceInformationStructuredReference(): ?string
     {
         return $this->remittanceInformationStructuredReference;
     }
